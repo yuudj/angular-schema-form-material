@@ -94,8 +94,8 @@ function materialDecoratorConfig(
       Object.getOwnPropertyNames(args.form.grid).forEach(function(property, idx, array) {
         layoutDiv.setAttribute(property, args.form.grid[property]);
       });
-    };
-  };
+    }
+  }
 
   function sfMessagesNodeHandler() {
     var html = '<div ng-if="ngModel.$invalid" ng-messages="ngModel.$error"><div sf-message ng-message></div></div>';
@@ -110,15 +110,15 @@ function materialDecoratorConfig(
       var child = sfMessagesNode.cloneNode();
       messagesDiv.appendChild(child);
     }
-  };
+  }
 
   function textareaBuilder(args) {
     var textareaFrag = args.fieldFrag.querySelector('textarea');
     var maxLength = args.form.maxlength || false;
     if (textareaFrag && maxLength) {
       textareaFrag.setAttribute('md-maxlength', maxLength);
-    };
-  };
+    }
+  }
 
   function mdAutocompleteBuilder(args) {
     var mdAutocompleteFrag = args.fieldFrag.querySelector('md-autocomplete');
@@ -130,19 +130,19 @@ function materialDecoratorConfig(
       if (args.form.onChange) {
         mdAutocompleteFrag.setAttribute('md-selected-item-change', 'args.form.onChange()');
         mdAutocompleteFrag.setAttribute('md-search-text-change', 'args.form.onChange(searchText)');
-      };
+      }
 
       // mdAutocompleteFrag.setAttribute('md-items', 'item in $filter(''autocomplete'')(searchText);');
       mdAutocompleteFrag.setAttribute('md-min-length', minLength);
       if (maxLength) {
         mdAutocompleteFrag.setAttribute('md-max-length', maxLength);
-      };
+      }
 
       if (title) {
         mdAutocompleteFrag.setAttribute('md-floating-label', title);
-      };
-    };
-  };
+      }
+    }
+  }
 
   function mdSwitchBuilder(args) {
     var mdSwitchFrag = args.fieldFrag.querySelector('md-switch');
@@ -156,7 +156,7 @@ function materialDecoratorConfig(
     var mdSelectFrag = args.fieldFrag.querySelector('md-select');
     var enumTitleMap = [];
     var i;
-    var mdSelectFrag;
+    
 
     args.form.selectOptions = [];
     args.form.getOptions = getOptionsHandler;
@@ -173,8 +173,8 @@ function materialDecoratorConfig(
           // TODO enable filter to allow processing results
           // args.form.optionSource = link.href.replace(related, '$1$1 model.$2 | _externalOptionUri $3$3');
           args.form.optionSource = link.href.replace(related, '$1$1 model.$2 $3$3');
-        };
-      };
+        }
+      }
 
       mdSelectFrag.setAttribute('sfm-external-options', args.form.optionSource);
     }
@@ -220,7 +220,7 @@ function materialDecoratorConfig(
         mdTabsFrag.appendChild(mdTab);
       });
     }
-  };
+  }
 
   /**
    * Material Datepicker
@@ -233,8 +233,8 @@ function materialDecoratorConfig(
       options.lookup[sfPathProvider.stringify(options.path)] = f;
       return f;
     }
-  };
-};
+  }
+}
 
 function getOptionsHandler(form, evalExpr) {
   if (form.optionData) {
@@ -243,10 +243,10 @@ function getOptionsHandler(form, evalExpr) {
 
   if (form.selectOptions) {
     return form.selectOptions;
-  };
+  }
 
   return [];
-};
+}
 
 function sfOptionsProcessor(data) {
   var enumTitleMap = [];
@@ -258,12 +258,12 @@ function sfOptionsProcessor(data) {
     for (i = 0; i < data.enum.length; i++) {
       if (data.enum[i] && data.enum[i].length) {
         enumTitleMap.push({ name: data.enum[i], value: data.enum[i] });
-      };
-    };
-  };
+      }
+    }
+  }
 
   return enumTitleMap;
-};
+}
 
 sfmExternalOptionsDirective.$inject = [ '$http' ];
 
@@ -282,25 +282,25 @@ function sfmExternalOptionsDirective($http) {
           scope.form.selectOptions = sfOptionsProcessor(response.data);
         });
     });
-  };
-};
+  }
+}
 
 /**
  * sfCamelKey Filter
  */
 function sfCamelKeyFilter() {
   return function(formKey) {
-    if (!formKey) { return ''; };
+    if (!formKey) { return ''; }
     var part, i, key;
     key = formKey.slice();
     for (i = 0; i < key.length; i++) {
       part = key[i].toLowerCase().split('');
       if (i && part.length) { part[0] = part[0].toUpperCase(); };
       key[i] = part.join('');
-    };
+    }
     return key.join('');
   };
-};
+}
 
 /*
   TODO add default filter for autocomplete which allows form.optionFilter or 'autocompleteFilter' to override
